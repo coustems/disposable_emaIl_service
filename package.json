@@ -3,10 +3,18 @@
   "version": "1.0.0",
   "description": "this is disposable email service",
   "main": "index.js",
+  "devDependencies": {
+    "concurrently": "^9.2.0"
+  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start:api": "node api/index.js",
+    "start:frontend": "cd frontend && npm run dev",
+    "start": "concurrently \"npm:start:*\""
   },
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "lucide-react": "^0.544.0"
+  }
 }
