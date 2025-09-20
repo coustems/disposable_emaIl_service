@@ -1,6 +1,6 @@
 # Environment variables - THIS IS THE MOST IMPORTANT PART
 .env
-.env.*
+
 *.env
 
 # Dependencies

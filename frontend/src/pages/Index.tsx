@@ -1,6 +1,6 @@
 import { useState } from "react";
 import EmailDashboard from "./EmailDashboard";
-import type { EmailData } from "@/components/EmailCard";
+import { EmailData } from "@/components/EmailCard";
 import DiviceVerification from "./deviceVerification";
 import Cards from "./Cards";
 
@@ -12,7 +12,15 @@ const Index = () => {
       <h1 className="text-2xl font-bold mb-4">Email Dashboard</h1>
       <DiviceVerification />
       <Cards />
-      <EmailDashboard />
+      {/* Render EmailDashboard only if an email is selected */}
+      {selectedEmail ? (
+        <EmailDashboard
+          selectedEmail={selectedEmail}
+          onEmailSelect={setSelectedEmail}
+        />
+      ) : (
+        <p className="text-gray-500">Please select an email to view details.</p>
+      )}
     </div>
   );
 };
