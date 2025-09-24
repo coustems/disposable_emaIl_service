@@ -1,0 +1,89 @@
+/* Card Layout CSS for Cards.tsx */
+.cards-bg {
+  min-height: 100vh;
+  width: 100%;
+  background: #f7fafc;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.cards-container {
+  width: 100%;
+  max-width: 900px;
+  padding: 48px 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.cards-title {
+  font-size: 2.5rem;
+  font-weight: bold;
+  margin-bottom: 40px;
+  text-align: center;
+}
+.cards-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  width: 100%;
+  max-width: 600px;
+}
+.card {
+  cursor: pointer;
+  border-radius: 20px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 1.5rem;
+  font-weight: 600;
+  transition: transform 0.2s;
+  min-height: 260px;
+  background: #fff;
+}
+.card:hover {
+  transform: scale(1.04);
+}
+.card-img-wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #fff;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+  height: 140px;
+}
+.card-img {
+  height: 80px;
+  width: 80px;
+  object-fit: contain;
+}
+.card-label {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 32px 0;
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+.card-red {
+  background: #c53030;
+  color: #fff;
+}
+.card-orange {
+  background: #ed8936;
+  color: #fff;
+}
+.card-red2 {
+  background: #e53e3e;
+  color: #fff;
+}
+.card-blue {
+  background: #0ea5e9;
+  color: #fff;
+}
