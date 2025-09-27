@@ -57,7 +57,7 @@ const DeviceVerification = () => {
   return (
   <div className="verification-bg" style={{ background: '#fff' }}>
       <div className="verification-center">
-  <div className={`verification-card ${colorClass}`}>  
+        <div className="verification-card" style={{ background: '#fff' }}>
           <div className="verification-icon-wrapper">
             <span className={`verification-icon ${colorClass}`} style={{ background: undefined }}>
               {icon ? (
