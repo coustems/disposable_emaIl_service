@@ -1,19 +1,39 @@
 import React, { useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
+import VerificationPage from "./VerificationPage";
 import { Alert, AlertDescription } from "@/components/ui/alert";
-import { Mail, ArrowRight } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 
 const DeviceVerification = () => {
   const [email, setEmail] = useState("");
   const [error, setError] = useState("");
   const navigate = useNavigate();
   const location = useLocation();
-  // Get bgColor from navigation state, fallback to default
-  const bgColor = location.state?.bgColor || "bg-background";
+  const bgColor = location.state?.bgColor || "card-red";
+  const serviceName = location.pathname.split("/")[1];
+  let colorClass = bgColor;
+  let icon = "";
+  switch (serviceName) {
+    case "NF":
+      colorClass = "card-red";
+      icon = "/images/netmirror.jpg";
+      break;
+    case "Crunchy":
+      colorClass = "card-orange";
+      icon = "/images/crunchyroll.png";
+      break;
+    case "Prime":
+      colorClass = "card-blue";
+      icon = "/images/prime2.png";
+      break;
+    case "YT Premium":
+      colorClass = "card-red2";
+      icon = "/images/youtube.png";
+      break;
+    default:
+      colorClass = bgColor;
+      icon = "";
+  }
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -31,79 +51,65 @@ const DeviceVerification = () => {
       return;
     }
     setError("");
-    // Navigate to the dashboard and pass the email in the URL state
     navigate(`/dashboard/${email}`);
   };
 
   return (
-    <div
-      className={`min-h-screen bg-background flex flex-col items-center justify-center p-4`}
-    >
-      <div className="flex gap-4 mb-6">
-        <Button
-          onClick={() =>
-            window.open(
-              `https://t.me/Luxuriousdevilott?text=${encodeURIComponent(
-                `Hi I am interested to buy in bulk`
-              )}`,
-              "_blank"
-            )
-          }
-          className="bg-blue-500 hover:bg-blue-600 text-white"
-        >
-          Buy on Telegram
-        </Button>
-        <Button
-          onClick={() =>
-            window.open(
-              `https://wa.me/9890938795?text=${encodeURIComponent(
-                `Hi I am interested to buy in bulk`
-              )}`,
-              "_blank"
-            )
-          }
-          className="bg-green-500 hover:bg-green-600 text-white"
-        >
-          Buy on WhatsApp
-        </Button>
-      </div>
-      <Card className={`w-full max-w-md`}>
-        <CardHeader className="text-center">
-          <div className="flex justify-center mb-4">
-            <Mail className={`h-12 w-12 ${bgColor} rounded-full p-2`} />
+    <div className="verification-bg" style={{ background: "#fff" }}>
+      <div className="verification-center">
+        <div className="verification-card" style={{ background: "#fff" }}>
+          <div className="verification-icon-wrapper">
+            <span
+              className={`verification-icon ${colorClass}`}
+              style={{ background: undefined }}
+            >
+              {icon ? (
+                serviceName === "Prime" ? (
+                  <img
+                    src={icon}
+                    alt={serviceName}
+                    style={{ width: 60, height: 40, objectFit: "contain" }}
+                  />
+                ) : (
+                  <img
+                    src={icon}
+                    alt={serviceName}
+                    style={{ width: 48, height: 48, objectFit: "contain" }}
+                  />
+                )
+              ) : (
+                <span>📧</span>
+              )}
+            </span>
           </div>
-          <CardTitle className="text-2xl">Disposable Email Viewer</CardTitle>
-          <p className="text-muted-foreground">
+          <h2 className="verification-title">Disposable Email Viewer</h2>
+          <p className="verification-desc">
             Enter your temporary email address to view its inbox.
           </p>
-        </CardHeader>
-        <CardContent>
-          <form onSubmit={handleSubmit} className="space-y-4">
-            <div className="space-y-2">
-              <Label htmlFor="email">Temporary Email Address</Label>
-              <Input
-                id="email"
-                type="email"
-                placeholder="Enter your mail"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                className="w-full"
-              />
-            </div>
-
+          <form className="verification-form" onSubmit={handleSubmit}>
+            <label htmlFor="email" className="verification-label">
+              Temporary Email Address
+            </label>
+            <input
+              type="email"
+              id="email"
+              className="verification-input"
+              placeholder="Enter your mail"
+              required
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
             {error && (
               <Alert variant="destructive">
                 <AlertDescription>{error}</AlertDescription>
               </Alert>
             )}
-
-            <Button type="submit" className={`w-full ${bgColor} text-white`}>
-              View Inbox
-              <ArrowRight className="ml-2 h-4 w-4" />
-            </Button>
+            <button type="submit" className="verification-btn">
+              View Inbox <ArrowRight className="ml-2 h-4 w-4" />
+            </button>
           </form>
-        </CardContent>
-      </Card>
+        </div>
+      </div>
     </div>
   );
 };
