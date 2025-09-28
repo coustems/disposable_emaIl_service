@@ -26,18 +26,21 @@
   border: none;
   cursor: pointer;
   font-size: 1.15rem;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
   transition: background 0.2s;
 }
+
 .about-btn:hover {
   background: #0369a1;
-/* Removed stray closing brace above */
+}
+
 .cards-title {
   font-size: 2.5rem;
   font-weight: bold;
   margin-bottom: 40px;
   text-align: center;
 }
+
 .cards-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -45,6 +48,8 @@
   width: 100%;
   max-width: 600px;
 }
+
+.card {
   cursor: pointer;
   border-radius: 20px;
   box-shadow: 0 4px 16px rgba(0,0,0,0.08);

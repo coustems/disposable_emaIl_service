@@ -23,9 +23,9 @@ const DeviceVerification = () => {
       icon = "/images/crunchyroll.png";
       break;
     case "Prime":
-  colorClass = "card-blue";
-  icon = "/images/prime2.png";
-  break;
+      colorClass = "card-blue";
+      icon = "/images/prime2.png";
+      break;
     case "YT Premium":
       colorClass = "card-red2";
       icon = "/images/youtube.png";
@@ -55,24 +55,41 @@ const DeviceVerification = () => {
   };
 
   return (
-  <div className="verification-bg" style={{ background: '#fff' }}>
+    <div className="verification-bg" style={{ background: "#fff" }}>
       <div className="verification-center">
-        <div className="verification-card" style={{ background: '#fff' }}>
+        <div className="verification-card" style={{ background: "#fff" }}>
           <div className="verification-icon-wrapper">
-            <span className={`verification-icon ${colorClass}`} style={{ background: undefined }}>
+            <span
+              className={`verification-icon ${colorClass}`}
+              style={{ background: undefined }}
+            >
               {icon ? (
                 serviceName === "Prime" ? (
-                  <img src={icon} alt={serviceName} style={{ width: 60, height: 40, objectFit: 'contain' }} />
+                  <img
+                    src={icon}
+                    alt={serviceName}
+                    style={{ width: 60, height: 40, objectFit: "contain" }}
+                  />
                 ) : (
-                  <img src={icon} alt={serviceName} style={{ width: 48, height: 48, objectFit: 'contain' }} />
+                  <img
+                    src={icon}
+                    alt={serviceName}
+                    style={{ width: 48, height: 48, objectFit: "contain" }}
+                  />
                 )
-              ) : <span>📧</span>}
+              ) : (
+                <span>📧</span>
+              )}
             </span>
           </div>
           <h2 className="verification-title">Disposable Email Viewer</h2>
-          <p className="verification-desc">Enter your temporary email address to view its inbox.</p>
+          <p className="verification-desc">
+            Enter your temporary email address to view its inbox.
+          </p>
           <form className="verification-form" onSubmit={handleSubmit}>
-            <label htmlFor="email" className="verification-label">Temporary Email Address</label>
+            <label htmlFor="email" className="verification-label">
+              Temporary Email Address
+            </label>
             <input
               type="email"
               id="email"
