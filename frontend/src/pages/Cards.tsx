@@ -1,4 +1,3 @@
-import React from "react";
 import { useNavigate } from "react-router-dom";
 import "./Cards.css";
 
@@ -38,7 +37,7 @@ const Cards = () => {
     <div className="cards-bg">
       <div className="cards-container">
         <h1 className="cards-title">Choose a Service</h1>
-        
+
         <div className="cards-grid">
           {cardData.map((card) => (
             <div
@@ -47,11 +46,7 @@ const Cards = () => {
               onClick={() => handleCardClick(card.name, card.color)}
             >
               <div className="card-img-wrapper">
-                <img
-                  src={card.img}
-                  alt={card.name}
-                  className="card-img"
-                />
+                <img src={card.img} alt={card.name} className="card-img" />
               </div>
               <div className="card-label">
                 <span>{card.name}</span>

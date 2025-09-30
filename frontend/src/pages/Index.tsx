@@ -1,6 +1,6 @@
 import { useState } from "react";
 import EmailDashboard from "./EmailDashboard";
-import { EmailData } from "@/components/EmailCard";
+import type { EmailData } from "@/components/EmailCard";
 import DiviceVerification from "./deviceVerification";
 import Cards from "./Cards";
 
