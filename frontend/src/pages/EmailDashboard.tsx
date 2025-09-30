@@ -7,6 +7,7 @@ type FetchedEmail = {
   body: string;
   timestamp: string | number;
 };
+
 import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { Button } from "@/components/ui/button";
@@ -20,7 +21,6 @@ interface SafeEmailBodyProps {
 }
 
 const SafeEmailBody: React.FC<SafeEmailBodyProps> = ({ htmlContent }) => {
-  // Sanitize the HTML string to prevent XSS
   const cleanHTML: string = DOMPurify.sanitize(htmlContent);
 
   return (
@@ -31,16 +31,7 @@ const SafeEmailBody: React.FC<SafeEmailBodyProps> = ({ htmlContent }) => {
         overflowWrap: "break-word",
       }}
     >
-      <div
-        style={{
-          width: "100%",
-          height: "100%",
-        }}
-      >
-        {parse(cleanHTML)}
-      </div>
-
-      {/* Extra CSS to make embedded content responsive */}
+      <div style={{ width: "100%", height: "100%" }}>{parse(cleanHTML)}</div>
       <style>{`
         .prose img {
           max-width: 100%;
@@ -58,6 +49,7 @@ const SafeEmailBody: React.FC<SafeEmailBodyProps> = ({ htmlContent }) => {
     </div>
   );
 };
+
 const EmailDashboard = () => {
   const [emails, setEmails] = useState<FetchedEmail[]>([]);
   const [selectedEmail, setSelectedEmail] = useState<FetchedEmail | null>(null);
@@ -72,9 +64,8 @@ const EmailDashboard = () => {
     setIsLoading(true);
     setError(null);
     try {
-      const apiUrl = import.meta.env.VITE_API_URL || "http://localhost:3001";
-      // const apiUrl = "https://api.luxidevilott.com";
-
+      const apiUrl =
+        import.meta.env.VITE_API_URL || "https://api.derkmail.online";
       const response = await fetch(
         `${apiUrl}/api?to=${encodeURIComponent(emailAddress)}`
       );
@@ -99,83 +90,275 @@ const EmailDashboard = () => {
     return <div>Error: No email address provided.</div>;
   }
 
-  // View for displaying the list of emails
+  // Inbox view
   if (!selectedEmail) {
     return (
-      <div className="container mx-auto p-4">
-        <div className="flex justify-between items-center mb-4">
-          <div>
-            <h1 className="text-2xl font-bold">Inbox for {emailAddress}</h1>
-            <p className="text-muted-foreground">
-              {emails.length} message(s) found.
-            </p>
-          </div>
-          <div className="flex gap-2">
-            <Button
-              variant="outline"
-              asChild={false}
-              onClick={() => navigate("/")}
-            >
-              <ArrowLeft className="mr-2 h-4 w-4" />
-              Back
-            </Button>
-            <Button onClick={fetchEmails} disabled={isLoading}>
-              <RefreshCw
-                className={`mr-2 h-4 w-4 ${isLoading ? "animate-spin" : ""}`}
-              />
-              Refresh
-            </Button>
-          </div>
-        </div>
+      <div
+        style={{
+          minHeight: "100vh",
+          background: "linear-gradient(135deg, #faf3e0, #fdfdf9)",
+          fontFamily:
+            '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
+        }}
+      >
+        <div
+          style={{
+            maxWidth: "850px",
+            margin: "0 auto",
+            padding: "20px",
+            backgroundColor: "#fffdf7",
+            minHeight: "100vh",
+            borderLeft: "1px solid #e0d5c1",
+            borderRight: "1px solid #e0d5c1",
+          }}
+        >
+          {/* Header */}
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+              marginBottom: "20px",
+              borderBottom: "2px solid #e0d5c1",
+              paddingBottom: "15px",
+            }}
+          >
+            <div>
+              <h1
+                style={{
+                  fontSize: "24px",
+                  fontWeight: 600,
+                  margin: "0 0 5px 0",
+                  color: "#4e342e",
+                }}
+              >
+                Inbox for {emailAddress}
+              </h1>
+              <p
+                style={{
+                  color: "#7b6a58",
+                  margin: "0",
+                  fontSize: "14px",
+                }}
+              >
+                {emails.length} message(s) found.
+              </p>
+            </div>
 
-        {isLoading && <p>Loading emails...</p>}
-        {error && <p className="text-destructive">Error: {error}</p>}
+            <div style={{ display: "flex", gap: "10px" }}>
+              <Button
+                variant="outline"
+                asChild={false}
+                onClick={() => navigate("/")}
+                style={{
+                  backgroundColor: "#f8f4ec",
+                  border: "1px solid #d6c6a8",
+                  color: "#4e342e",
+                  fontWeight: 500,
+                  padding: "8px 16px",
+                }}
+              >
+                <ArrowLeft className="mr-2 h-4 w-4" />
+                Back
+              </Button>
+              <Button
+                onClick={fetchEmails}
+                disabled={isLoading}
+                style={{
+                  backgroundColor: "#d4a017",
+                  border: "1px solid #b58900",
+                  color: "white",
+                  fontWeight: 500,
+                  padding: "8px 16px",
+                }}
+              >
+                <RefreshCw
+                  className={`mr-2 h-4 w-4 ${isLoading ? "animate-spin" : ""}`}
+                />
+                Refresh
+              </Button>
+            </div>
+          </div>
 
-        <div className="space-y-2">
-          {emails.map((email) => (
-            <Card
-              key={email.id}
-              className="cursor-pointer hover:bg-muted/50"
-              onClick={() => setSelectedEmail(email)}
+          {/* Loading */}
+          {isLoading && (
+            <div
+              style={{
+                textAlign: "center",
+                padding: "40px",
+                color: "#7b6a58",
+              }}
             >
-              <CardContent className="p-4 flex justify-between">
-                <div>
-                  <p className="font-semibold">{email.from}</p>
-                  <p className="font-bold">{email.subject}</p>
-                  <p className="text-sm text-muted-foreground">
+              Loading emails...
+            </div>
+          )}
+
+          {/* Error */}
+          {error && (
+            <div
+              style={{
+                color: "#842029",
+                backgroundColor: "#f8d7da",
+                border: "1px solid #f5c6cb",
+                borderRadius: "6px",
+                padding: "12px",
+                marginBottom: "20px",
+              }}
+            >
+              Error: {error}
+            </div>
+          )}
+
+          {/* Emails list */}
+          <div
+            style={{ display: "flex", flexDirection: "column", gap: "12px" }}
+          >
+            {emails.map((email) => (
+              <div
+                key={email.id}
+                style={{
+                  backgroundColor: "white",
+                  border: "1px solid #e0d5c1",
+                  borderRadius: "10px",
+                  cursor: "pointer",
+                  padding: "15px 20px",
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "flex-start",
+                  transition: "all 0.2s ease",
+                  boxShadow: "0 2px 4px rgba(0,0,0,0.05)",
+                }}
+                onClick={() => setSelectedEmail(email)}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.backgroundColor = "#fdf8ee";
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.backgroundColor = "white";
+                }}
+              >
+                <div style={{ flex: 1, minWidth: 0 }}>
+                  <div
+                    style={{
+                      fontSize: "14px",
+                      color: "#7b6a58",
+                      marginBottom: "4px",
+                      fontWeight: 500,
+                    }}
+                  >
+                    {email.from}
+                  </div>
+                  <div
+                    style={{
+                      fontSize: "16px",
+                      fontWeight: 600,
+                      color: "#4e342e",
+                      marginBottom: "6px",
+                      lineHeight: "1.3",
+                    }}
+                  >
+                    {email.subject}
+                  </div>
+                  <div
+                    style={{
+                      fontSize: "14px",
+                      color: "#7b6a58",
+                      lineHeight: "1.4",
+                      overflow: "hidden",
+                      textOverflow: "ellipsis",
+                      whiteSpace: "nowrap",
+                    }}
+                  >
                     {email.snippet}
-                  </p>
+                  </div>
                 </div>
-                <p className="text-sm text-muted-foreground">
-                  {new Date(email.timestamp).toLocaleString()}
-                </p>
-              </CardContent>
-            </Card>
-          ))}
+                <div
+                  style={{
+                    fontSize: "12px",
+                    color: "#a1887f",
+                    marginLeft: "15px",
+                    flexShrink: 0,
+                    textAlign: "right",
+                  }}
+                >
+                  {new Date(email.timestamp).toLocaleDateString("en-US", {
+                    month: "short",
+                    day: "numeric",
+                    year:
+                      new Date(email.timestamp).getFullYear() !==
+                      new Date().getFullYear()
+                        ? "numeric"
+                        : undefined,
+                  })}
+                  <br />
+                  {new Date(email.timestamp).toLocaleTimeString("en-US", {
+                    hour: "numeric",
+                    minute: "2-digit",
+                    hour12: true,
+                  })}
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Empty state */}
+          {emails.length === 0 && !isLoading && !error && (
+            <div
+              style={{
+                textAlign: "center",
+                padding: "60px 20px",
+                color: "#7b6a58",
+              }}
+            >
+              <h3 style={{ margin: "0 0 10px 0", color: "#4e342e" }}>
+                No emails found
+              </h3>
+              <p style={{ margin: "0", fontSize: "14px" }}>
+                This inbox is empty. Emails will appear here when they arrive.
+              </p>
+            </div>
+          )}
         </div>
       </div>
     );
   }
 
-  // View for displaying a single selected email's content
+  // Single email view
   return (
-    <div className="container mx-auto p-4">
+    <div
+      className="container mx-auto p-4"
+      style={{ background: "#faf3e0", minHeight: "100vh" }}
+    >
       <Button
         variant="outline"
         asChild={false}
         onClick={() => setSelectedEmail(null)}
         className="mb-4"
+        style={{
+          backgroundColor: "#f8f4ec",
+          border: "1px solid #d6c6a8",
+          color: "#4e342e",
+          fontWeight: 500,
+          padding: "8px 16px",
+        }}
       >
         <ArrowLeft className="mr-2 h-4 w-4" />
         Back to Inbox
       </Button>
-      <Card>
+      <Card
+        style={{
+          border: "1px solid #e0d5c1",
+          borderRadius: "12px",
+          boxShadow: "0 4px 8px rgba(0,0,0,0.05)",
+        }}
+      >
         <CardHeader>
-          <p className="text-sm text-muted-foreground">
+          <p className="text-sm" style={{ color: "#7b6a58" }}>
             From: {selectedEmail.from}
           </p>
-          <CardTitle>{selectedEmail.subject}</CardTitle>
-          <p className="text-sm text-muted-foreground">
+          <CardTitle style={{ color: "#4e342e" }}>
+            {selectedEmail.subject}
+          </CardTitle>
+          <p className="text-sm" style={{ color: "#7b6a58" }}>
             At: {new Date(selectedEmail.timestamp).toLocaleString()}
           </p>
         </CardHeader>
