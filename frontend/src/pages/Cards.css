@@ -1,91 +1,259 @@
-/* Card Layout CSS for Cards.tsx */
+/* Card Layout CSS for Cards.tsx - Redesigned to match luxidevilott.com */
 .cards-bg {
   min-height: 100vh;
   width: 100%;
-  background: #f7fafc;
+  background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding: 20px 0;
 }
+
 .cards-container {
   width: 100%;
-  max-width: 900px;
-  padding: 48px 16px;
+  max-width: 1200px;
+  padding: 60px 16px;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-.about-btn {
-  margin-bottom: 32px;
-  padding: 14px 32px;
-  border-radius: 10px;
-  background: #0ea5e9;
-  color: #fff;
-  font-weight: bold;
+/* Buy buttons section */
+.buy-buttons {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 60px;
+}
+
+.buy-btn {
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 14px;
   border: none;
   cursor: pointer;
-  font-size: 1.15rem;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-  transition: background 0.2s;
+  transition: all 0.2s ease;
+  text-decoration: none;
+  display: inline-block;
 }
-.about-btn:hover {
-  background: #0369a1;
-  /* Removed stray closing brace above */
-  .cards-title {
-    font-size: 2.5rem;
-    font-weight: bold;
-    margin-bottom: 40px;
-    text-align: center;
-  }
-  .cards-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 40px;
-    width: 100%;
-    max-width: 600px;
-  }
+
+.buy-btn.telegram {
+  background: #0088cc;
+  color: white;
+}
+
+.buy-btn.whatsapp {
+  background: #25d366;
+  color: white;
+}
+
+.buy-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.cards-title {
+  font-size: 2.8rem;
+  font-weight: 700;
+  margin-bottom: 50px;
+  text-align: center;
+  color: #1a202c;
+  letter-spacing: -0.5px;
+}
+
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 30px;
+  width: 100%;
+  max-width: 800px;
+  margin-bottom: 60px;
+}
+
+.card {
   cursor: pointer;
-  border-radius: 20px;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+  border-radius: 16px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-between;
-  font-size: 1.5rem;
-  font-weight: 600;
-  transition: transform 0.2s;
-  min-height: 260px;
+  justify-content: center;
+  font-size: 1.8rem;
+  font-weight: 700;
+  transition: all 0.3s ease;
+  min-height: 200px;
   background: #fff;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  position: relative;
+  overflow: hidden;
 }
+
 .card:hover {
-  transform: scale(1.04);
+  transform: translateY(-8px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
 }
+
 .card-img-wrapper {
   width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
   background: #fff;
-  border-top-left-radius: 20px;
-  border-top-right-radius: 20px;
-  height: 140px;
+  height: 120px;
+  margin-bottom: 20px;
 }
+
 .card-img {
-  height: 80px;
-  width: 80px;
+  height: 60px;
+  width: 60px;
   object-fit: contain;
 }
+
 .card-label {
   width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 32px 0;
-  border-bottom-left-radius: 20px;
-  border-bottom-right-radius: 20px;
-  font-size: 1.5rem;
-  font-weight: bold;
+  padding: 20px 0;
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: #fff;
+  border-radius: 0 0 16px 16px;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
 }
-/* Removed merge conflict markers below */
-/* Removed old card color classes. All cards have white background. */
+
+/* Service-specific colors matching luxidevilott.com */
+.card-red .card-label {
+  background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
+}
+
+.card-orange .card-label {
+  background: linear-gradient(135deg, #ea580c 0%, #c2410c 100%);
+}
+
+.card-red2 .card-label {
+  background: linear-gradient(135deg, #dc2626 0%, #991b1b 100%);
+}
+
+.card-blue .card-label {
+  background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+}
+
+/* Email viewer section */
+.email-viewer-section {
+  width: 100%;
+  max-width: 600px;
+  background: #fff;
+  border-radius: 20px;
+  padding: 40px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.email-viewer-icon {
+  width: 80px;
+  height: 80px;
+  background: linear-gradient(135deg, #f97316 0%, #ea580c 100%);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 30px;
+  font-size: 2rem;
+}
+
+.email-viewer-title {
+  font-size: 2rem;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 15px;
+  color: #1a202c;
+}
+
+.email-viewer-desc {
+  font-size: 1.1rem;
+  text-align: center;
+  color: #64748b;
+  margin-bottom: 30px;
+  line-height: 1.6;
+}
+
+.email-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.email-label {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #374151;
+  margin-bottom: 8px;
+}
+
+.email-input {
+  width: 100%;
+  padding: 16px 20px;
+  border: 2px solid #e5e7eb;
+  border-radius: 12px;
+  font-size: 1rem;
+  transition: all 0.2s ease;
+  background: #f9fafb;
+}
+
+.email-input:focus {
+  outline: none;
+  border-color: #f97316;
+  background: #fff;
+  box-shadow: 0 0 0 3px rgba(249, 115, 22, 0.1);
+}
+
+.email-submit-btn {
+  background: linear-gradient(135deg, #f97316 0%, #ea580c 100%);
+  color: white;
+  border: none;
+  padding: 16px 32px;
+  border-radius: 12px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.email-submit-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(249, 115, 22, 0.3);
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .cards-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  
+  .cards-title {
+    font-size: 2.2rem;
+  }
+  
+  .card {
+    min-height: 180px;
+  }
+  
+  .email-viewer-section {
+    padding: 30px 20px;
+    margin: 0 16px;
+  }
+  
+  .buy-buttons {
+    flex-direction: column;
+    align-items: center;
+  }
+}
