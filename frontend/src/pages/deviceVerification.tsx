@@ -9,10 +9,10 @@ const DeviceVerification = () => {
   const location = useLocation();
   const bgColor = location.state?.bgColor || "card-red";
   const serviceName = location.pathname.split("/")[1];
-  
+
   let colorClass = bgColor;
   let icon = "";
-  
+
   switch (serviceName) {
     case "NF":
       colorClass = "card-red";
@@ -37,16 +37,9 @@ const DeviceVerification = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (
-      !email.trim() ||
-      !(
-        email.includes("@derkmail.online") ||
-        email.includes("@devilott.store") ||
-        email.includes("@luxidevilott.com")
-      )
-    ) {
+    if (!email.trim() || !email.includes("@derkmail.online")) {
       setError(
-        "Please enter a valid email address from our supported domains: @derkmail.online, @devilott.store, or @luxidevilott.com"
+        "Please enter a valid email address from our supported domains: @derkmail.online"
       );
       return;
     }
@@ -57,14 +50,14 @@ const DeviceVerification = () => {
   return (
     <div className="verification-bg">
       <div className="verification-center">
-        <div className="verification-card">  
+        <div className="verification-card">
           <div className="verification-icon-wrapper">
             <span className={`verification-icon ${colorClass}`}>
               {icon ? (
-                <img 
-                  src={icon} 
-                  alt={serviceName} 
-                  style={{ width: 48, height: 48, objectFit: "contain" }} 
+                <img
+                  src={icon}
+                  alt={serviceName}
+                  style={{ width: 48, height: 48, objectFit: "contain" }}
                 />
               ) : (
                 <span>📧</span>
@@ -72,9 +65,13 @@ const DeviceVerification = () => {
             </span>
           </div>
           <h2 className="verification-title">Disposable Email Viewer</h2>
-          <p className="verification-desc">Enter your temporary email address to view its inbox.</p>
+          <p className="verification-desc">
+            Enter your temporary email address to view its inbox.
+          </p>
           <form className="verification-form" onSubmit={handleSubmit}>
-            <label htmlFor="email" className="verification-label">Temporary Email Address</label>
+            <label htmlFor="email" className="verification-label">
+              Temporary Email Address
+            </label>
             <input
               type="email"
               id="email"
@@ -85,7 +82,13 @@ const DeviceVerification = () => {
               onChange={(e) => setEmail(e.target.value)}
             />
             {error && (
-              <div style={{ color: "#dc2626", fontSize: "0.9rem", marginTop: "8px" }}>
+              <div
+                style={{
+                  color: "#dc2626",
+                  fontSize: "0.9rem",
+                  marginTop: "8px",
+                }}
+              >
                 {error}
               </div>
             )}
