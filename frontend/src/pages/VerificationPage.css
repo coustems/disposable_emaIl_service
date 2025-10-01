@@ -74,7 +74,8 @@
   padding: 12px;
   border-radius: 8px;
   border: 1px solid #f7fafc;
-  background: #fffbe6;
+  background: #ffffff;
+  color: #000000;
   font-size: 1rem;
   outline: none;
 }
